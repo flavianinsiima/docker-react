@@ -1,0 +1,9 @@
+sudo: required # docker requires superuser creds
+services:
+    - docker #ask travis to hv docker running
+before_install: #cmds before tests r run or deployment happens
+    - docker build -t docker-react -f Dockerfile.dev .
+script:
+    # watches for exit codes. if not 0 then build fails
+    - docker run -e CI=true docker-react npm run test
+language: generic 
